@@ -1,5 +1,4 @@
 import React ,{Component} from 'react';
-import {createStore} from 'redux';
 import  {connect} from 'react-redux'
 
 class Home extends Component{
@@ -28,7 +27,8 @@ const initialState = {
     text:'Hello'
 }
 
-const reducer = (state=initialState,action) =>{
+
+function homeReducer(state=initialState,action){
     switch (action.type){
         case 'CHANGE_TEXT':
             return {
@@ -44,13 +44,10 @@ const reducer = (state=initialState,action) =>{
 }
 
 
-//store
-let store = createStore(reducer);
-
 //映射Redux state到组件的属性
 function mapStateToProps(state) {
     return {
-        text:state.text
+        text:state.home.text
     }
 }
 
@@ -62,6 +59,8 @@ function mapDispatchToProps(dispath) {
     }
 }
 
+//store
+//let store = createStore(homeReducer);
 Home = connect(mapStateToProps,mapDispatchToProps)(Home);
 
-export {Home,store};
+export {Home,homeReducer};
