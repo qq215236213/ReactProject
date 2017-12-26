@@ -50,6 +50,7 @@ function mapDispatchToProps(dispatch) {
 //store
 //let aboutStore = createStore(reducer);
 
+
 About = connect(mapStateToProps,mapDispatchToProps)(About);
 
 export {About,aboutReducer};

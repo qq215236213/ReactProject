@@ -1,0 +1,7 @@
+
+html, body, :global(#root) {
+  height: auto;
+}
+html, body, :global(#login) {
+  height: auto ;
+}
