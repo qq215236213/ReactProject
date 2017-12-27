@@ -12,7 +12,7 @@ class App extends Component {
 		  home:homeReducer, about:aboutReducer
       });
       let store = createStore(reducer);
-      console.log(store)
+      console.log(store.getState())
     return (
        <Provider store={store}>
           <Router>
@@ -25,5 +25,7 @@ class App extends Component {
     );
   }
 }
+
+
 
 export default App;
