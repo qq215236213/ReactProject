@@ -25,7 +25,7 @@ export default class InputBox extends Component{
     render(){
         return (
             <div>
-                <Search onPressEnter={(e,cb) => this.pressEnterHandle(e,this.props.cb)} onSearch={(txt,cb) =>this.searchTest(txt,this.props.cb)} placeholder="input text" enterButton="确定" size="large" />
+                <Search onPressEnter={(e,cb) => this.pressEnterHandle(e,this.props.cb)} onSearch={(txt,cb) =>this.searchTest(txt,this.props.searchcb)} placeholder="input text" enterButton="确定" size="large" />
             </div>
         );
     }
