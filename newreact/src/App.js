@@ -8,6 +8,7 @@ import {About,aboutReducer} from "./components/About";*/
 import Home from './components/Home';
 import About from "./components/About";
 import {homeReducer,aboutReducer} from './components/redux/reducer';
+import News from './components/News';
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
               <div>
                   <Route exact path='/' component={Home} />
                   <Route path={'/about'} component={About}/>
+                  <Route path={'/news'} component={News}/>
               </div>
           </Router>
        </Provider>
