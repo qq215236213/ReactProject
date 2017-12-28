@@ -51,7 +51,8 @@ const aboutReducer = (state = {
 
 
 //映射
-function mapStateToProps(state) {
+function mapStateToProps(state,ownProps) {
+	console.log(ownProps);
 	return {
 		text:state.about.text,
 		isShow:state.about.isShow
