@@ -1,5 +1,6 @@
 import React ,{Component} from 'react';
 import  {connect} from 'react-redux'
+import {changeTxtAction,buttonClickAction} from './redux/action';
 
 class Home extends Component{
     render(){
@@ -13,22 +14,8 @@ class Home extends Component{
     }
 }
 
-//action
-const changeTxtAction = {
-    type:'CHANGE_TEXT'
-}
-
-const buttonClickAction = {
-    type:'BUTTON_CLICK'
-}
-
 //reducer
-const initialState = {
-    text:'Hello'
-}
-
-
-function homeReducer(state=initialState,action){
+/*function homeReducer(state={text:'Hello'},action){
     switch (action.type){
         case 'CHANGE_TEXT':
             return {
@@ -41,7 +28,7 @@ function homeReducer(state=initialState,action){
         default:
             return state;
     }
-}
+}*/
 
 
 //映射Redux state到组件的属性
@@ -63,4 +50,5 @@ function mapDispatchToProps(dispath) {
 //let store = createStore(homeReducer);
 Home = connect(mapStateToProps,mapDispatchToProps)(Home);
 
-export {Home,homeReducer};
+// export {Home,homeReducer};
+export default Home;

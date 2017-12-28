@@ -3,8 +3,11 @@ import './App.css';
 import {BrowserRouter as Router,Route} from 'react-router-dom';
 import {createStore,combineReducers} from 'redux';
 import {Provider} from 'react-redux';
-import {Home,homeReducer} from './components/Home';
-import {About,aboutReducer} from "./components/About";
+/*import {Home,homeReducer} from './components/Home';
+import {About,aboutReducer} from "./components/About";*/
+import Home from './components/Home';
+import About from "./components/About";
+import {homeReducer,aboutReducer} from './components/redux/reducer';
 
 class App extends Component {
   render() {
@@ -12,7 +15,6 @@ class App extends Component {
 		  home:homeReducer, about:aboutReducer
       });
       let store = createStore(reducer);
-      console.log(store)
     return (
        <Provider store={store}>
           <Router>
@@ -25,5 +27,7 @@ class App extends Component {
     );
   }
 }
+
+
 
 export default App;
