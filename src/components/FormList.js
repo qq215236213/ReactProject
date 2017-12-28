@@ -1,6 +1,6 @@
 import React , { Component } from 'react';
 import PropTypes from 'prop-types';
-import {showText} from './redex/action';
+import {showText} from './redux/action';
 
 
 class FormList extends Component{

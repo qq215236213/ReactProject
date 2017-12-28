@@ -1,6 +1,6 @@
 import React ,{Component} from 'react';
 import  {connect} from 'react-redux'
-import {changeTxtAction,buttonClickAction} from './redex/action';
+import {changeTxtAction,buttonClickAction} from './redux/action';
 
 class Home extends Component{
     render(){

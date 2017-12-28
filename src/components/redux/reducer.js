@@ -4,6 +4,9 @@ export const aboutReducer = (state = {
 },action)=>{
 	switch (action.type){
 		case 'CHANGE_TEXT':
+			if(state.text === '哈哈'){
+				return Object.assign({},state,{text:'嘿嘿'});
+			}
 			return Object.assign({},state,{text:'哈哈'});
 		case 'SHOWTEXT':
 			if(state.isShow){

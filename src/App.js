@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 import {About,aboutReducer} from "./components/About";*/
 import Home from './components/Home';
 import About from "./components/About";
-import {homeReducer,aboutReducer} from './components/redex/reducer';
+import {homeReducer,aboutReducer} from './components/redux/reducer';
 
 class App extends Component {
   render() {

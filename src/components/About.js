@@ -2,7 +2,7 @@ import React ,{Component} from 'react';
 import  {connect} from 'react-redux'
 import PropTypes from 'prop-types';
 import FormList from './FormList';
-import {changeTxt} from './redex/action';
+import {changeTxt} from './redux/action';
 
 class About extends Component{
 	constructor(props,context){
