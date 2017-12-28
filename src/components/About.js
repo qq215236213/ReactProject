@@ -1,9 +1,13 @@
 import React ,{Component} from 'react';
 import  {connect} from 'react-redux'
+import PropTypes from 'prop-types';
 
 class About extends Component{
+	
 	render(){
-		const {onChangeTxt,text} = this.props;
+		const {onChangeTxt,text } = this.props;
+		const {store} = this.context;
+		console.log(store.getState())
 		return (
 			<div>
 				<h1 onClick={onChangeTxt}>{text}</h1>
@@ -50,6 +54,9 @@ function mapDispatchToProps(dispatch) {
 //store
 //let aboutStore = createStore(reducer);
 
+About.contextTypes = {
+	store:PropTypes.object.isRequired
+}
 
 About = connect(mapStateToProps,mapDispatchToProps)(About);
 

@@ -1,8 +1,9 @@
-import React,{Component,findDOMNode,PropTypes} from 'react';
+import React,{Component,PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 
 export  default class AddTodo extends Component{
 	handleClick(e){
-		const node = findDOMNode(this.refs.input);
+		const node = ReactDOM.findDOMNode(this.refs.input);
 		const text = node.value.trim();
 		this.props.onAddClick(text);
 		node.value = '';
@@ -16,8 +17,4 @@ export  default class AddTodo extends Component{
 			</div>
 		);
 	}
-}
-
-AddTodo.propTypes = {
-	onAddClick:PropTypes.func.isRequired
-}
+};
