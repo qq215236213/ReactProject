@@ -12,7 +12,6 @@ class App extends Component {
 		  home:homeReducer, about:aboutReducer
       });
       let store = createStore(reducer);
-      console.log(store.getState())
     return (
        <Provider store={store}>
           <Router>

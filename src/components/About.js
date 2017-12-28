@@ -3,14 +3,23 @@ import  {connect} from 'react-redux'
 import PropTypes from 'prop-types';
 
 class About extends Component{
-	
+	constructor(props,context){
+		super(props,context);
+		this.onChangeTxt = this.onChangeTxt.bind(this);
+	}
+
+	onChangeTxt(){
+		const {store} = this.context;
+		store.dispatch(changeTxt);
+	}
+
 	render(){
-		const {onChangeTxt,text } = this.props;
+		const {text } = this.props;
 		const {store} = this.context;
 		console.log(store.getState())
 		return (
 			<div>
-				<h1 onClick={onChangeTxt}>{text}</h1>
+				<h1 onClick={this.onChangeTxt}>{text}</h1>
 			</div>
 		);
 	}
@@ -45,11 +54,12 @@ function mapStateToProps(state) {
 	}
 }
 
-function mapDispatchToProps(dispatch) {
+
+/*function mapDispatchToProps(dispatch) {
 	return {
 		onChangeTxt:()=> dispatch(changeTxt)
 	}
-}
+}*/
 
 //store
 //let aboutStore = createStore(reducer);
@@ -58,7 +68,7 @@ About.contextTypes = {
 	store:PropTypes.object.isRequired
 }
 
-About = connect(mapStateToProps,mapDispatchToProps)(About);
+About = connect(mapStateToProps)(About);
 
 export {About,aboutReducer};
 
