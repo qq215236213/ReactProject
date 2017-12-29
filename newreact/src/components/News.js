@@ -23,7 +23,7 @@ export default class News extends Component{
 	}
 
 	componentDidMount(){
-		console.log(111);
+
 	}
 
 	render(){
