@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CustomInput from './common/CustomInput';
+//import CustomInput from './common/CustomInput';
 
 export default class Test extends Component{
 	/*componentDidMount(){
@@ -10,7 +10,7 @@ export default class Test extends Component{
 			<Parent inputRef={el => this.inputElement = el} />
 		);
 	}*/
-	constructor(props){
+	/*constructor(props){
 		super(props);
 		this.refElement = null;
 		this.getElement = this.getElement.bind(this);
@@ -23,6 +23,18 @@ export default class Test extends Component{
 	render(){
 		return(
 			<CustomInput getElement={this.getElement}/>
+		);
+	}*/
+
+	componentDidMount(){
+		console.log(this.input);
+	}
+
+	render(){
+		return (
+			<div>
+				<input type="text" ref={e => this.input = e}/>
+			</div>
 		);
 	}
 }

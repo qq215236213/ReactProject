@@ -10,6 +10,7 @@ import About from "./components/About";
 import {homeReducer,aboutReducer} from './components/redux/reducer';
 import News from './components/News';
 import Test from './components/Test';
+import TestDemo from './components/TestDemo';
 
 class App extends Component {
   render() {
@@ -25,6 +26,7 @@ class App extends Component {
                   <Route path={'/about'} component={About}/>
                   <Route path={'/news'} component={News}/>
                   <Route path={'/test'} component={Test}/>
+                  <Route path={'/testdemo'} component={TestDemo}/>
               </div>
           </Router>
        </Provider>
