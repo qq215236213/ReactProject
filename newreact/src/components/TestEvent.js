@@ -1,6 +1,13 @@
 import React , { Component } from 'react';
-import { Form,Icon,Button,Checkbox,Input } from 'antd';
+import $ from 'jquery';
+import md5 from 'md5';
+import {CookieHelper} from './common/CookieHelper';
+import { Form,Icon,Button,Checkbox,Input,message } from 'antd';
 const FormItem = Form.Item;
+
+message.config({
+	top:100,
+});
 
 class TestEvent extends Component{
 	constructor(props){
@@ -23,11 +30,27 @@ class TestEvent extends Component{
 		const username = this.userInput.input.value;
 		const password = this.passwordInput.input.value;
 		if(username === ''){
-
+			message.error('用户名不能为空');
+			return;
 		}
 		if(password === ''){
-
+			message.error('密码不能为空');
+			return;
 		}
+
+		$.post('http://www.jfbsc.com/login',{username:username,password:md5(password).toString()},function (d) {
+			console.log(d)
+			if(d.IsError){
+				message.error(d.Msg);
+				return;
+			}
+			CookieHelper('username',d.Data.User.MemberName);
+			CookieHelper('userid',d.Data.User.MemberId);
+			CookieHelper('token',d.Data.Token);
+			CookieHelper('isteammanager',d.Data.User.IsTeamManager);
+
+			//window.location.href = '/testdemo';
+		});
 
 		// this.props.form.validateFields((err,values) =>{
 		//
@@ -37,6 +60,9 @@ class TestEvent extends Component{
 	componentDidMount(){
 		// console.log(this.userInput.input);
 		// console.log(this.passwordInput.input);
+		// $.post('http://www.jfbsc.com/login',{},function (d) {
+		// 	console.log(d);
+		// });
 	}
 
 	render(){
