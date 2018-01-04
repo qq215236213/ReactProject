@@ -11,6 +11,7 @@ import {homeReducer,aboutReducer} from './components/redux/reducer';
 import News from './components/News';
 import Test from './components/Test';
 import TestDemo from './components/TestDemo';
+import TestEvent from './components/TestEvent';
 
 class App extends Component {
   render() {
@@ -27,6 +28,7 @@ class App extends Component {
                   <Route path={'/news'} component={News}/>
                   <Route path={'/test'} component={Test}/>
                   <Route path={'/testdemo'} component={TestDemo}/>
+                  <Route path={'/testevent'} component={TestEvent}/>
               </div>
           </Router>
        </Provider>
