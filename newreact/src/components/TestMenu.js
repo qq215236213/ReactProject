@@ -1,12 +1,72 @@
-import React ,{ Component } from 'react';
+import React, {Component} from 'react';
+import {Layout, Menu, Breadcrumb, Icon} from 'antd';
+const {Header, Content, Footer, Sider} = Layout;
+const SubMenu = Menu.SubMenu;
 
-class TestMenu extends Component{
-    render(){
+class TestMenu extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            collapsed: false
+        };
+        this.onCollapse = this.onCollapse.bind(this);
+    }
+
+    onCollapse(collapsed){
+        this.setState({
+            collapsed
+        });
+    }
+
+    render() {
+        const {collapsed} = this.state;
+        const userIcon = <span><Icon type='user'/><span>User</span></span>;
+        const teamIcon = <span><Icon type='team'/><span>Team</span></span>;
         return (
-            <div>
-                <h1>haha</h1>
-            </div>
-        );
+            <Layout style={{minHeight:'100vh'}}>
+            <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
+                <div className='logo'></div>
+                <Menu theme='dark' defaultSelectedKeys={['1']} mode='inline'>
+                    <Menu.Item key='1'>
+                        <Icon type='pie-chart'/>
+                        <span>Option 1</span>
+                    </Menu.Item>
+                    <Menu.Item key='2'>
+                        <Icon type='desktop'/>
+                        <span>Option 2</span>
+                    </Menu.Item>
+                    <SubMenu key='sub1' title={userIcon}>
+                        <Menu.Item key='3'>Tom</Menu.Item>
+                        <Menu.Item key='4'>Bill</Menu.Item>
+                        <Menu.Item key='5'>Alex</Menu.Item>
+                    </SubMenu>
+                    <SubMenu key='sub1' title={teamIcon}>
+                        <Menu.Item key='6'>Team1</Menu.Item>
+                        <Menu.Item key='7'>Team2</Menu.Item>
+                    </SubMenu>
+                    <Menu.Item key='8'>
+                        <Icon type='file'/>
+                        <span>File</span>
+                    </Menu.Item>
+                </Menu>
+            </Sider>
+            <Layout>
+                <Header style={{background:'#fff',padding:0}}/>
+                <Content style={{margin:'0 16px'}}>
+                    <Breadcrumb style={{margin:'16px 0'}}>
+                        <Breadcrumb.Item>User</Breadcrumb.Item>
+                        <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <div style={{padding:'24px',background:'#fff',minHeight:'360px'}}>
+                        Bill is a cat.
+                    </div>
+                </Content>
+                <Footer style={{textAlign:'center'}}>
+                    Copyright © 2013-2017 18bg.com. All rights reserved.
+                </Footer>
+            </Layout>
+        </Layout>
+    );
     }
 }
 

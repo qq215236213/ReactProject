@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import InputBox from '../components/common/InputBox';
 import SearchText from './SearchText';
 
-
 export default class News extends Component{
 
 	constructor(props){
