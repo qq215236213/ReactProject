@@ -25,7 +25,7 @@ class TestMenu extends Component {
         return (
             <Layout style={{minHeight:'100vh'}}>
             <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
-                <div className='logo'></div>
+                <div style={{height:'32px',background:'rgba(255,255,255,.2)',margin:'16px'}}></div>
                 <Menu theme='dark' defaultSelectedKeys={['1']} mode='inline'>
                     <Menu.Item key='1'>
                         <Icon type='pie-chart'/>
@@ -40,7 +40,7 @@ class TestMenu extends Component {
                         <Menu.Item key='4'>Bill</Menu.Item>
                         <Menu.Item key='5'>Alex</Menu.Item>
                     </SubMenu>
-                    <SubMenu key='sub1' title={teamIcon}>
+                    <SubMenu key='sub2' title={teamIcon}>
                         <Menu.Item key='6'>Team1</Menu.Item>
                         <Menu.Item key='7'>Team2</Menu.Item>
                     </SubMenu>
@@ -53,11 +53,11 @@ class TestMenu extends Component {
             <Layout>
                 <Header style={{background:'#fff',padding:0}}/>
                 <Content style={{margin:'0 16px'}}>
-                    <Breadcrumb style={{margin:'16px 0'}}>
+                    <Breadcrumb style={{margin:'10px 0'}}>
                         <Breadcrumb.Item>User</Breadcrumb.Item>
                         <Breadcrumb.Item>Bill</Breadcrumb.Item>
                     </Breadcrumb>
-                    <div style={{padding:'24px',background:'#fff',minHeight:'360px'}}>
+                    <div style={{padding:'15px',background:'#fff',minHeight:'460px'}}>
                         Bill is a cat.
                     </div>
                 </Content>

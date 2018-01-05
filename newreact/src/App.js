@@ -13,6 +13,7 @@ import Test from './components/Test';
 import TestDemo from './components/TestDemo';
 import TestEvent from './components/TestEvent';
 import TestMenu from './components/TestMenu';
+import Dialog from './components/Dialog';
 
 class App extends Component {
   render() {
@@ -31,6 +32,7 @@ class App extends Component {
                   <Route path={'/testdemo'} component={TestDemo}/>
                   <Route path={'/testevent'} component={TestEvent}/>
                   <Route path={'/testmenu'} component={TestMenu}/>
+                  <Route path={'/dialog'} component={Dialog}/>
               </div>
           </Router>
        </Provider>
