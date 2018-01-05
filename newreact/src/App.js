@@ -14,6 +14,7 @@ import TestDemo from './components/TestDemo';
 import TestEvent from './components/TestEvent';
 import TestMenu from './components/TestMenu';
 import Dialog from './components/Dialog';
+import TimePickerDemo from './components/TimePickerDemo';
 
 class App extends Component {
   render() {
@@ -33,6 +34,7 @@ class App extends Component {
                   <Route path={'/testevent'} component={TestEvent}/>
                   <Route path={'/testmenu'} component={TestMenu}/>
                   <Route path={'/dialog'} component={Dialog}/>
+                  <Route path={'/timepicker'} component={TimePickerDemo} />
               </div>
           </Router>
        </Provider>
