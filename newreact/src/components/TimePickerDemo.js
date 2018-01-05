@@ -9,6 +9,7 @@ export default class TimePickerDemo extends Component{
 	}
 
 	changeTime(time,timestring){
+		console.log(time);
 		console.log(timestring);
 	}
 
@@ -23,7 +24,7 @@ class TimePick extends Component{
 	render(){
 		return (
 			<div>
-				<TimePicker onChange={(obj,str) => this.props.change(obj,str)} defaultValue={moment(new Date().toString(),'HH:mm:ss')}/>
+				<TimePicker allowEmpty={false} onChange={(obj,str) => this.props.change(obj,str)} defaultValue={moment(new Date(),'HH:mm:ss')}/>
 			</div>
 		);
 	}
