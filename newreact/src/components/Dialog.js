@@ -1,7 +1,7 @@
 import React , { Component }from 'react';
 import {Button,Modal} from 'antd';
 import { ShowConfirm } from "./common/ShowConfirm";
-import {ShowInfo} from "./common/ShowInfo";
+import {ShowInfo,ShowSuccessInfo} from "./common/ShowInfo";
 
 
 export default class Dialog extends Component{
@@ -15,6 +15,7 @@ export default class Dialog extends Component{
 		this.dialogOk = this.dialogOk.bind(this);
 		this.showConfirm = this.showConfirm.bind(this);
 		this.showInfo = this.showInfo.bind(this);
+		this.showSuccessInfo = this.showSuccessInfo.bind(this);
 	}
 
 	btnClick(){
@@ -50,13 +51,14 @@ export default class Dialog extends Component{
 	}
 
 	showInfo(){
-		ShowInfo({
-			title:'',
-			content:'',
-			okFun:function () {
+		ShowInfo('','',() => {
 				console.log('ok click');
 			}
-		});
+		);
+	}
+
+	showSuccessInfo(){
+		ShowSuccessInfo();
 	}
 
 	render(){
@@ -66,6 +68,7 @@ export default class Dialog extends Component{
 				<Button type={'primary'} onClick={this.btnClick}>Show Dialog</Button>
 				<Button type={'primary'} style={{marginLeft:'10px'}} onClick={this.showConfirm}>Show Confirm</Button>
 				<Button type={'primary'} style={{marginLeft:'10px'}} onClick={this.showInfo}>Show Info</Button>
+				<Button type={'primary'} style={{marginLeft:'10px'}} onClick={this.showSuccessInfo}>Show SuccessInfo</Button>
 				<Modal title={'Basic Modal'} visible={visible} onCancel={this.dialogClose} maskClosable={false} onOk={this.dialogOk}>
 					<p>Some contents...</p>
 					<p>Some contents...</p>
