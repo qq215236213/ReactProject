@@ -12,7 +12,7 @@ export default class News extends Component{
 			text:'hello world',
             searchTxt:''
 		}
-		this.changeTxt = this.changeTxt.bind(this);
+		this.changeTxt = this.changeTxt.bind(this);<div></div>
 		this.changeSearchTxt = this.changeSearchTxt.bind(this);
 		this.onChangeHandle = this.changeSearchTxt.bind(this);
 	}
