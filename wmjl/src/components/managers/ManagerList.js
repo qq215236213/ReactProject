@@ -185,6 +185,17 @@ export default class ManagerList extends Component{
 			}*/
 
             if(this.state.isedit){
+            	if(values.editchk){
+                    if(values.password !== values.confirmpassword) {
+                        form.setFields({
+                            confirmpassword: {
+                                value: values.confirmpassword,
+                                errors: [new Error('两次输入的密码不一致')]
+                            }
+                        });
+						return ;
+                    }
+				}
 				let params = {};
                 params.id = this.state.managerid;
                 params.issystemmanager = '1' === values.issystem ? true : false;
@@ -287,7 +298,11 @@ export default class ManagerList extends Component{
 				dataIndex:'CurStatus',
 				key:'CurStatus',
 				width:'150px',
-				render:(record) =>record === 0?'正常':'禁用'
+				render:(record) =>record === 0
+								?
+								<span style={{color:'green'}}>正常</span>
+								:
+								<span style={{color:'red'}}>禁用</span>
 			},
 			{
 				title:'是否管理员',
@@ -325,7 +340,7 @@ export default class ManagerList extends Component{
 				isedit
 				?
 				<div>
-					<Mod wrappedComponentRef={(inst) => this.formRef = inst } data={editdata} />
+					<Mod wrappedComponentRef={(inst) => this.formRef = inst } data={editdata} needValidCheck={false}/>
 				</div>
 				:
 				<div>

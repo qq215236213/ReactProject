@@ -8,7 +8,8 @@ class Mod extends Component{
     constructor(props){
         super(props);
         this.state = {
-            disabled:true
+            disabled:true,
+            needvalidcheck:this.props.needValidCheck
         }
         this.checkPassword = this.checkPassword.bind(this);
         this.editPwdChkChange = this.editPwdChkChange.bind(this);
@@ -25,13 +26,13 @@ class Mod extends Component{
     editPwdChkChange(){
         const form = this.props.form;
         form.resetFields(['password','confirmpassword']);
-        this.setState({disabled:!this.state.disabled});
+        this.setState({disabled:!this.state.disabled,needvalidcheck:!this.state.needvalidcheck});
     }
 
 
     render(){
-        const {data} = this.props;
-        const {disabled} = this.state;
+        const {data,} = this.props;
+        const {disabled,needvalidcheck} = this.state;
         const {getFieldDecorator} = this.props.form;
         const formItemLayout = {
             labelCol: {
@@ -81,9 +82,9 @@ class Mod extends Component{
         const confirmPwdConfig = {
             rules:[{
                 required:true,message:'确认密码不能为空'
-            },{
+            }/*,{
                 validator:this.checkPassword
-            }]
+            }*/]
         }
         const checkbox = getFieldDecorator('editchk',{initialValue:false})(<Checkbox onChange={this.editPwdChkChange}>修改</Checkbox>);
         return (
@@ -102,27 +103,48 @@ class Mod extends Component{
                              label={'密码'}
                 >
                     {
-                        getFieldDecorator('password', passwordConfig)(
-                            <Input placeholder="密码"
-                                   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                   type={'password'}
-                                   addonAfter={checkbox}
-                                   disabled={disabled}
-                            />
-                        )
+                        needvalidcheck
+                            ?
+                            getFieldDecorator('password', passwordConfig)(
+                                <Input placeholder="密码"
+                                       prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                       type={'password'}
+                                       addonAfter={checkbox}
+                                       disabled={disabled}
+                                />
+                            )
+                            :
+                            getFieldDecorator('password')(
+                                <Input placeholder="密码"
+                                       prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                       type={'password'}
+                                       addonAfter={checkbox}
+                                       disabled={disabled}
+                                />
+                            )
                     }
                 </FormItem>
                 <FormItem	{...formItemLayout}
                              label={'确认密码'}
                 >
                     {
-                        getFieldDecorator('confirmpassword',confirmPwdConfig)(
-                            <Input placeholder="确认密码"
-                                   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                   type={'password'}
-                                   disabled={disabled}
-                            />
-                        )
+                        needvalidcheck
+                            ?
+                            getFieldDecorator('confirmpassword',confirmPwdConfig)(
+                                <Input placeholder="确认密码"
+                                       prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                       type={'password'}
+                                       disabled={disabled}
+                                />
+                            )
+                            :
+                            getFieldDecorator('confirmpassword')(
+                                <Input placeholder="确认密码"
+                                       prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                       type={'password'}
+                                       disabled={disabled}
+                                />
+                            )
                     }
                 </FormItem>
                 <FormItem	{...formItemLayout}
@@ -141,7 +163,8 @@ class Mod extends Component{
 }
 
 Mod.propTypes = {
-    data:PropTypts.object
+    data:PropTypts.object,
+    needValidCheck:PropTypts.bool
 }
 
 export default Form.create()(Mod);
