@@ -2,7 +2,8 @@ import React,{ Component } from 'react';
 import TableCustom from '../common/table/TableCustom';
 import SearchCustom from '../common/searchcondition/SearchCustom';
 import ButtonCustom from '../common/actionbutton/ButtonCustom';
-import AddMod from './AddMod';
+import Add from './Add';
+import Mod from './Mod';
 import { datefmt } from "../common/dateformat";
 import { cookie } from "../common/cookie";
 import { tipMsg } from '../common/confirm/confirm';
@@ -14,17 +15,18 @@ export default class ManagerList extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			data:[],
-			isloading:false,
-			totalcount:0,
-			showdialog:false,
-			showcurstus:false,
-			showeditpwdchk:false,
-			editpwddisabled:true,
-			showbatchdelbtn:false,
-			batchdelids:[],
-			needvalidate:true,
-			disabled:false
+			data:[],/**数据*/
+            totalcount:0, /**数据的总记录数*/
+            batchdelids:[],/**多选框选中的记录*/
+            searchTxt:'',/**查询关键字*/
+            pageindex:1,/**当前页码*/
+            pagesize:10,/**每页显示记录条数*/
+			isloading:false,/**是否正在加载数据*/
+			showdialog:false,/**是否显示modal对话框*/
+			showbatchdelbtn:false,/**是否显示批量删除按钮*/
+            isedit:false, /**是否是编辑，用于区分加载对话框的内容*/
+            managerid:0, /**用于标记修改的是哪条数据*/
+            editdata:{}/**获取明细*/
 		}
 		this.onSearch = this.onSearch.bind(this);
 		this.pageSizeChange = this.pageSizeChange.bind(this);
@@ -38,19 +40,31 @@ export default class ManagerList extends Component{
 		this.onBatchDel = this.onBatchDel.bind(this);
 		this.dialogCancel = this.dialogCancel.bind(this);
 		this.dialogOk = this.dialogOk.bind(this);
+		this.checkboxProps = this.checkboxProps.bind(this);
 	}
 
 	/**
 	 * 查询框查询按钮事件*/
 	onSearch(value){
-		console.log(value);
+		this.setState({
+			searchTxt:value
+		});
+		this.loadData({loginname:value});
+	}
+
+	/**行checkbox的特性*/
+    checkboxProps(record){
+		return {disabled:record.Id === 1};
 	}
 
 	/**
 	 * 翻页*/
 	pageSizeChange(page,pagesize){
-		console.log(page);
-		console.log(pagesize);
+		this.setState({
+			pageindex:page,
+			pagesize:pagesize
+		});
+		this.loadData({pageindex:page,pagesize:pagesize});
 	}
 	/**
 	 * table 设置key值,默认不用改动*/
@@ -65,8 +79,11 @@ export default class ManagerList extends Component{
 	/**
 	 * 每页显示记录条数按钮事件*/
 	showSizeChange(page,pagesize){
-		console.log(page);
-		console.log(pagesize);
+		this.setState({
+			pageindex:page,
+			pagesize:pagesize
+		});
+		this.loadData({pageindex:page,pagesize:pagesize});
 	}
 	/**
 	 * checkbox 按钮事件*/
@@ -91,17 +108,17 @@ export default class ManagerList extends Component{
 	editHandle(id){
 		this.setState({
 			showdialog:true,
-			showcurstus:true,
-			showeditpwdchk:true,
-			editpwddisabled:true,
-			disabled:true
+			disabled:true,
+            isedit:true,
+            managerid:id
 		});
+		this.getManager(id);
 	}
 	/**
 	 * 删除按钮事件*/
 	deleteHandle(id){
 		const _this = this;
-		tipMsg('提示','确定删除吗?',function () {
+		tipMsg('提示','确定删除选中记录的吗?',function () {
 			$.post('/manager/batchdel',{ids:[id],accesstoken:cookie('token')},function (d) {
 				console.log(d);
 				if(d.IsError){
@@ -119,17 +136,26 @@ export default class ManagerList extends Component{
 	onAdd(){
 		this.setState({
 			showdialog:true,
-			showcurstus:false,
-			showeditpwdchk:false,
-			editpwddisabled:false,
-			disabled:false
+			disabled:false,
+            isedit:false
 		});
 	}
 
 	/**
 	 * 批量删除按钮事件*/
 	onBatchDel(){
-		console.log('batchdel')
+		const _this = this;
+		tipMsg('提示','确定要删除吗？',()=>{
+            $.post('/manager/batchdel',{ids:this.state.batchdelids,accesstoken:cookie('token')},function (d) {
+                if(d.IsError){
+                    message.error(d.Msg);
+                    return;
+                }
+                message.success('删除成功');
+                _this.setState({showbatchdelbtn:false});
+                _this.loadData();
+            });
+		});
 	}
 
 	/**
@@ -141,29 +167,88 @@ export default class ManagerList extends Component{
 	/**
 	 * modal对话框确定事件*/
 	dialogOk(){
-		const _this = this;
 		const {form} = this.formRef.props;
 		form.validateFieldsAndScroll((err, values) => {
-			console.log(values);
-			/*if (!err) {
-				const params = {
-					loginname: values.loginname,
-					loginpwd : md5(values.password),
-				 	issystemmanager : values.issystem==='1' ? true : false,
-					accesstoken:cookie('token')
-				}
+            if (err) {
+                return;
+            }
 
-				$.post('/manager',params,function (d) {
-					if(d.IsError){
-						message.error(d.Msg);
-						return;
+			console.log(values);
+            /**验证两次输入的密码是否一致*/
+            /*if(values.password !== values.confirmpassword){
+            	form.setFields({
+                    confirmpassword:{
+                    	value:values.confirmpassword,
+                    	errors:[new Error('两次输入的密码不一致')]
 					}
-					_this.loadData();
-					_this.setState({showdialog:false});
 				});
 			}*/
-		});
 
+            if(this.state.isedit){
+				let params = {};
+                params.id = this.state.managerid;
+                params.issystemmanager = '1' === values.issystem ? true : false;
+                params.curstatus = values.curstatus;
+				if(values.editchk){
+					params.loginpwd = md5(values.password);
+
+				}
+				this.updateManager(params);
+			}else{
+                const params = {
+                    loginname: values.loginname,
+                    loginpwd: md5(values.password),
+                    accesstoken: cookie('token'),
+                    issystemmanager: '1' === values.issystem ? true : false
+                }
+                this.addManager(params);
+			}
+        });
+
+	}
+
+	/**更新数据*/
+	updateManager(params){
+		const _this = this;
+        const param = Object.assign({},{accesstoken:cookie('token')},params);
+        $.post('/manager/'+params.id, param, function (d) {
+            if (d.IsError) {
+                message.error(d.Msg);
+                return;
+            }
+            _this.loadData();
+            _this.setState({showdialog: false});
+        });
+	}
+
+	/**新增数据*/
+	addManager(params){
+        const _this = this;
+		const param = Object.assign({},{accesstoken:cookie('token')},params);
+        $.post('/manager', param, function (d) {
+            if (d.IsError) {
+                message.error(d.Msg);
+                return;
+            }
+            _this.loadData();
+            _this.setState({showdialog: false});
+        });
+	}
+
+	/**获取一条明细*/
+	getManager(id){
+		const _this = this;
+		if(id === null || typeof id === 'undefined' || id===0){
+			message.error('获取明细失败');
+			return;
+		}
+		$.get('/manager/'+id,{accesstoken:cookie('token')},function (d) {
+			if(d.IsError){
+				message.error(d.Msg);
+				return;
+			}
+            _this.setState({editdata:d.Data});
+        });
 	}
 
 	/**
@@ -171,6 +256,9 @@ export default class ManagerList extends Component{
 	loadData(params){
 		const _this = this;
 		const param = Object.assign({},{
+			pagesize:this.state.pagesize,
+			pageindex:this.state.pageindex,
+			loginname:this.state.searchTxt,
 			accesstoken:cookie('token')
 		},params);
 		$.get('/manager',param,function (d) {
@@ -186,7 +274,8 @@ export default class ManagerList extends Component{
 	}
 
 	render(){
-		const {data,isloading,totalcount,showdialog,showcurstus,showeditpwdchk,disabled} = this.state;
+		const {data,isloading,totalcount,showdialog,editdata,
+			showbatchdelbtn,isedit} = this.state;
 		const columns = [
 			{
 				title:'登录名',
@@ -219,26 +308,36 @@ export default class ManagerList extends Component{
 				key:'action',
 				width:'150px',
 				render:(text) => (
-					<span>
-						<a onClick={(id)=>this.editHandle(text.Id)}>修改</a>
-						<a onClick={(id) =>this.deleteHandle(text.Id)} style={{marginLeft:'15px'}}>删除</a>
-					</span>
+					text.Id === 1
+						?
+						<span>
+							<a onClick={(id)=>this.editHandle(text.Id)}>修改</a>
+						</span>
+						:
+						<span>
+							<a onClick={(id)=>this.editHandle(text.Id)}>修改</a>
+							<a onClick={(id) =>this.deleteHandle(text.Id)} style={{marginLeft:'15px'}}>删除</a>
+						</span>
 				)
 			}
 		];
 		const modalChlidren = (
-			<div>
-				<AddMod wrappedComponentRef={(inst) => this.formRef = inst}
-						showCurStus={showcurstus}
-						showEditPwdChk={showeditpwdchk}
-						disabled={disabled}
-				/>
-			</div>
+				isedit
+				?
+				<div>
+					<Mod wrappedComponentRef={(inst) => this.formRef = inst } data={editdata} />
+				</div>
+				:
+				<div>
+					<Add wrappedComponentRef={(inst) => this.formRef = inst} />
+				</div>
 		);
 		return (
 			<div>
 				<ButtonCustom onAdd={this.onAdd}
-							  showBatchDelButton={true}
+                              addIcon={'user-add'}
+							  showBatchDelButton={showbatchdelbtn}
+                              batchDelIcon={'usergroup-delete'}
 							  onBatchDel={this.onBatchDel}
 							  dialogIsShow={showdialog}
 							  showFooter={true}
@@ -259,6 +358,7 @@ export default class ManagerList extends Component{
 							 showSizeChange={this.showSizeChange}
 							 showRowCheckbox={true}
 							 rowSelectChange={this.rowSelectChange}
+                             checkboxProps={this.checkboxProps}
 				/>
 			</div>
 		);

@@ -10,7 +10,26 @@ const RangePicker = DatePicker.RangePicker;
 
 export default class SearchCustom extends Component{
 	render(){
-		const {selectOpts,selectDefault,showDatePicker,showSelect,selectWidth,onSearch,datePickerChange,selectChange,inputPlaceholder} = this.props;
+		const {
+            /**是否显示下拉选择框 类型：bool*/
+            showSelect,
+            /**下拉选择框宽度 类型：number*/
+            selectWidth,
+		    /**下拉选择框的选项 类型：{value,text}数组*/
+		    selectOpts,
+            /**下拉选择框默认选项 类型：string*/
+            selectDefault,
+            /**下拉框的change事件 类型：func,参数：value*/
+            selectChange,
+            /**是否现实日期选择框 类型：bool*/
+            showDatePicker,
+            /**日期选择器的日期选择事件 类型：func,参数：data,dataString*/
+            datePickerChange,
+            /**搜索框按钮点击或者回车事件 类型：func,参数：value*/
+            onSearch,
+            /**搜索框的placeholder*/
+            inputPlaceholder
+		} = this.props;
 		const opts = selectOpts && selectOpts.map((item,index)=>{
 			return (
 				<Option key={index} value={item.value}>{item.text}</Option>
