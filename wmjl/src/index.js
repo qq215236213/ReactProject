@@ -6,7 +6,7 @@ import AppLogin from './AppLogin';
 import registerServiceWorker from './registerServiceWorker';
 
 const path = window.location.hash;
-if(/\/login/.test(path)){
+if(/#\/login/.test(path)){
 	ReactDOM.render(<AppLogin />, document.getElementById('root'));
 }else{
 	ReactDOM.render(<App />, document.getElementById('root'));

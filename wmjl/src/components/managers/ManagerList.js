@@ -23,7 +23,8 @@ export default class ManagerList extends Component{
 			editpwddisabled:true,
 			showbatchdelbtn:false,
 			batchdelids:[],
-			needvalidate:true
+			needvalidate:true,
+			disabled:false
 		}
 		this.onSearch = this.onSearch.bind(this);
 		this.pageSizeChange = this.pageSizeChange.bind(this);
@@ -37,7 +38,6 @@ export default class ManagerList extends Component{
 		this.onBatchDel = this.onBatchDel.bind(this);
 		this.dialogCancel = this.dialogCancel.bind(this);
 		this.dialogOk = this.dialogOk.bind(this);
-		this.editPwdChkChange = this.editPwdChkChange.bind(this);
 	}
 
 	/**
@@ -72,7 +72,7 @@ export default class ManagerList extends Component{
 	 * checkbox 按钮事件*/
 	rowSelectChange(selectedRowKeys,selectedRows){
 		const lenght = selectedRowKeys.length;
-		if(lenght == 0){
+		if(lenght === 0){
 			this.setState({
 				showbatchdelbtn:false
 			});
@@ -93,7 +93,8 @@ export default class ManagerList extends Component{
 			showdialog:true,
 			showcurstus:true,
 			showeditpwdchk:true,
-			editpwddisabled:true
+			editpwddisabled:true,
+			disabled:true
 		});
 	}
 	/**
@@ -120,7 +121,8 @@ export default class ManagerList extends Component{
 			showdialog:true,
 			showcurstus:false,
 			showeditpwdchk:false,
-			editpwddisabled:false
+			editpwddisabled:false,
+			disabled:false
 		});
 	}
 
@@ -142,7 +144,8 @@ export default class ManagerList extends Component{
 		const _this = this;
 		const {form} = this.formRef.props;
 		form.validateFieldsAndScroll((err, values) => {
-			if (!err) {
+			console.log(values);
+			/*if (!err) {
 				const params = {
 					loginname: values.loginname,
 					loginpwd : md5(values.password),
@@ -158,17 +161,9 @@ export default class ManagerList extends Component{
 					_this.loadData();
 					_this.setState({showdialog:false});
 				});
-			}
+			}*/
 		});
 
-	}
-
-	/**
-	 * modal 对话框中修改checkbox事件*/
-	editPwdChkChange(){
-		this.setState({
-			editpwddisabled:!this.state.editpwddisabled
-		});
 	}
 
 	/**
@@ -191,7 +186,7 @@ export default class ManagerList extends Component{
 	}
 
 	render(){
-		const {data,isloading,totalcount,showdialog,showcurstus,showeditpwdchk,editpwddisabled,showbatchdelbtn} = this.state;
+		const {data,isloading,totalcount,showdialog,showcurstus,showeditpwdchk,disabled} = this.state;
 		const columns = [
 			{
 				title:'登录名',
@@ -236,8 +231,7 @@ export default class ManagerList extends Component{
 				<AddMod wrappedComponentRef={(inst) => this.formRef = inst}
 						showCurStus={showcurstus}
 						showEditPwdChk={showeditpwdchk}
-						editPwdDisabled={editpwddisabled}
-						editPwdChkChange={this.editPwdChkChange}
+						disabled={disabled}
 				/>
 			</div>
 		);
@@ -252,7 +246,6 @@ export default class ManagerList extends Component{
 							  dialogOkFunc={this.dialogOk}
 							  dialogTitle={'添加'}
 							  modalChildren={modalChlidren}
-							  showBatchDelButton={showbatchdelbtn}
 				/>
 				<SearchCustom onSearch={this.onSearch} inputPlaceholder={'输入登录名查询'}/>
 				<TableCustom columns={columns}

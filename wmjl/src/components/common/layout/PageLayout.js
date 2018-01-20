@@ -24,7 +24,7 @@ export default class PageLayout extends Component{
 
 	componentDidMount(){
 		const username = cookie('membername');
-		if(typeof username === 'undefined' || username === ''){
+		if(username === null || typeof username === 'undefined' || username === ''){
 			window.location.hash = '/login';
 		}
 		this.setState({

@@ -94,6 +94,10 @@ class MemberInfo extends Component{
 			},params);
 		$.get('/member',param,function (d) {
 			if(d.IsError){
+				if(d.ErrorCode === 10000){
+					message.error('请刷新页面重新登录');
+					return;
+				}
 				message.error('数据错误');
 				return;
 			}
@@ -116,7 +120,7 @@ class MemberInfo extends Component{
 			{
 				title:'会员名',
 				dataIndex:'MemName',
-				width:'200px'
+				width:'150px'
 			},
 			{
 				title:'联系电话',
@@ -132,19 +136,16 @@ class MemberInfo extends Component{
 				title:'所在省份',
 				dataIndex:'ProvinceName',
 				key:'ProvinceName',
-				width:'150px'
 			},
 			{
 				title:'所在城市',
 				dataIndex:'CityName',
 				key:'CityName',
-				width:'150px'
 			},
 			{
 				title:'所在地区',
 				dataIndex:'AreaName',
 				key:'AreaName',
-				width:'200px'
 			},
 			{
 				title:'详细地址',
@@ -155,6 +156,7 @@ class MemberInfo extends Component{
 				title:'创建时间',
 				dataIndex:'CreateTime',
 				key:'CreateTime',
+				width:'130px',
 				render:(record) => datefmt(record,'yyyy-MM-dd')
 			}
 		];

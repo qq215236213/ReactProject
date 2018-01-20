@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
-import {Input,Select,Icon,Form,Checkbox} from 'antd';
+import {Input,Select,Icon,Form} from 'antd';
 import PropTypes from 'prop-types';
+import EditPwd from './EditPwd';
+import ConfirmEditPwd from './ConfirmEditPwd';
 const Option = Select.Option;
 const FormItem = Form.Item;
 
@@ -9,11 +11,11 @@ const FormItem = Form.Item;
 	constructor(props){
 		super(props);
 		this.state = {
-			loginname:'',
-			password:'',
-			confirmpassword:''
+			disabled:this.props.disabled,
+			needcheckstate:false
 		}
 		this.checkPassword = this.checkPassword.bind(this);
+		this.editPwdChkChange = this.editPwdChkChange.bind(this);
 	}
 
 	 checkPassword(rule,value,callback){
@@ -25,9 +27,14 @@ const FormItem = Form.Item;
 		 }
 	 }
 
+     editPwdChkChange(){
+		this.setState({disabled:!this.state.disabled,needcheckstate:!this.state.needcheckstate});
+	 }
+
 	render(){
-		const {showCurStus,showEditPwdChk,editPwdDisabled,editPwdChkChange} = this.props;
-		const {getFieldDecorator} = this.props.form;
+		const {showCurStus,showEditPwdChk} = this.props;
+		const {disabled,needcheckstate} = this.state;
+		const {getFieldDecorator,getFieldProps} = this.props.form;
 		const formItemLayout = {
 			labelCol: {
 				xs: { span: 22 },
@@ -54,7 +61,48 @@ const FormItem = Form.Item;
 				<Option value="1">禁用</Option>
 			</Select>
 		);
-		const checkbox = <Checkbox onChange={editPwdChkChange}>修改</Checkbox>;
+
+
+		const passwordProps =  getFieldProps('password',{
+            rules:[{
+                required:true,message:'密码不能为空'
+            }]
+		});
+		const confirmPwdProps = getFieldProps('confirmpassword',{
+            rules:[{
+                required:true,message:'确认密码不能为空'
+            },{
+                validator:this.checkPassword
+            }]
+		});
+
+		const pwdInput = () =>{
+            if(needcheckstate){
+                return (
+                    <EditPwd Disabled={disabled} editPwdChkChange={this.editPwdChkChange}
+							 {...passwordProps}
+					/>
+				);
+            }else{
+                return (
+                    <EditPwd Disabled={disabled} editPwdChkChange={this.editPwdChkChange}
+                    />
+				);
+            }
+		};
+
+		const confirmPwdInput = () =>{
+			if(needcheckstate){
+                return (
+                    <ConfirmEditPwd Disabled={disabled} {...confirmPwdProps}/>
+				);
+			}else{
+				return (
+                    <ConfirmEditPwd Disabled={disabled}/>
+				);
+			}
+		}
+
 		return (
 			<Form>
 				<FormItem	{...formItemLayout}
@@ -73,42 +121,22 @@ const FormItem = Form.Item;
 				<FormItem	{...formItemLayout}
 							 label={'密码'}
 				>
-					{getFieldDecorator('password',{
-						rules:[{
-							required:true,message:'密码不能为空'
-						}]
-					})(
+					{
 						showEditPwdChk
 							?
-						<Input placeholder="密码"
-							   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-							   type={'password'}
-							   addonAfter={checkbox}
-							   disabled={editPwdDisabled}
-						/>
+							pwdInput()
 							:
-						<Input placeholder="密码"
-							   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-							   type={'password'}
+						<Input {...passwordProps}
+								placeholder="密码"
+							   	prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+							   	type={'password'}
 						/>
-					)}
+                    }
 				</FormItem>
 				<FormItem	{...formItemLayout}
 							 label={'确认密码'}
 				>
-					{getFieldDecorator('confirmpassword',{
-						rules:[{
-							required:true,message:'确认密码不能为空'
-						},{
-							validator:this.checkPassword
-						}]
-					})(
-						<Input placeholder="确认密码"
-							   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-							   type={'password'}
-							   disabled={editPwdDisabled}
-						/>
-					)}
+					{confirmPwdInput()}
 				</FormItem>
 				<FormItem	{...formItemLayout}
 							 label={'是否管理员'}
@@ -121,7 +149,6 @@ const FormItem = Form.Item;
 				>
 					{curStatusSelector}
 				</FormItem>
-				<button ref={(el) => this.submit = el} type={'submit'} style={{display:'none'}}>Submit</button>
 			</Form>
 		);
 	}
@@ -130,8 +157,7 @@ const FormItem = Form.Item;
 AddMod.propTypes = {
 	showCurStus:PropTypes.bool,
 	showEditPwdChk:PropTypes.bool,
-	editPwdDisabled:PropTypes.bool,
-	editPwdChkChange:PropTypes.func
+    disabled:PropTypes.bool
 }
 
 export default Form.create()(AddMod);
