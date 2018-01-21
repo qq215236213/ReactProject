@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
-import {Input,Select,Icon,Form} from 'antd';
+import {Input,Select,Icon,Form,message} from 'antd';
+import $ from 'jquery';
+import {cookie} from '../common/cookie';
 const Option = Select.Option;
 const FormItem = Form.Item;
 
@@ -7,7 +9,11 @@ const FormItem = Form.Item;
 class Add extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            exist:2,
+        };
         this.checkPassword = this.checkPassword.bind(this);
+        this.checkLoginNameExist = this.checkLoginNameExist.bind(this);
     }
 
     checkPassword(rule,value,callback){
@@ -19,7 +25,33 @@ class Add extends Component{
         }
     }
 
+    checkLoginNameExist(rule,value,callback){
+        const _this = this;
+        if(!value){
+            this.setState({exist:-1});
+            callback();
+            return;
+        }
+        $.get('/manager/exist',{loginname:value,accesstoken:cookie('token')},function (d) {
+            if(d.IsError){
+                message.error(d.Msg);
+                callback();
+                return;
+            }
+            if(d.Data){
+                _this.setState({exist:-1});
+                callback('登录名已存在');
+                return;
+            }else{
+                _this.setState({exist:1});
+                callback();
+            }
+        });
+
+    }
+
     render(){
+        const { exist } = this.state;
         const {getFieldDecorator} = this.props.form;
         const formItemLayout = {
             labelCol: {
@@ -43,6 +75,8 @@ class Add extends Component{
         const usernameConfig = {
             rules:[{
                 required:true,message:'登录名不能为空'
+            },{
+                validator:this.checkLoginNameExist
             }]
         };
 
@@ -63,6 +97,8 @@ class Add extends Component{
             <Form>
                 <FormItem	{...formItemLayout}
                              label={'登录名'}
+                             hasFeedback
+                             validateStatus= {exist == 0 ? 'validating':(exist == 1?'success':(exist ==-1?'error':''))}
                 >
                     {getFieldDecorator('loginname',usernameConfig)(
                         <Input placeholder="登录名"
