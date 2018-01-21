@@ -283,7 +283,6 @@ export default class ManagerList extends Component{
 	componentDidMount(){
 		this.loadData();
 	}
-
 	render(){
 		const {data,isloading,totalcount,showdialog,editdata,
 			showbatchdelbtn,isedit} = this.state;

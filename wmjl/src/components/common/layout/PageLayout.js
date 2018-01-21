@@ -25,7 +25,7 @@ export default class PageLayout extends Component{
 	componentDidMount(){
 		const username = cookie('membername');
 		if(username === null || typeof username === 'undefined' || username === ''){
-			window.location.hash = '/login';
+			window.location.hash = '#/login';
 		}
 		this.setState({
 			username
@@ -41,7 +41,7 @@ export default class PageLayout extends Component{
 		this.setState({
 			username:''
 		});
-		window.location.hash = '/login';
+		window.location.hash = '#/login';
 	}
 
 	render(){
@@ -54,7 +54,7 @@ export default class PageLayout extends Component{
 					</a>
 				</Menu.Item>
 				<Menu.Item key={'item2'}>
-					<a href="" onClick={this.logoutEvent}>
+					<a onClick={this.logoutEvent}>
 						<Icon type={'logout'}></Icon> 退出
 					</a>
 				</Menu.Item>
@@ -73,12 +73,14 @@ export default class PageLayout extends Component{
 						<Menu.Item key="1">
 							<Icon type="team" style={{fontSize:18}}/>
 							<span>
-								<a href="#/" style={{color:'#fff'}}>会员列表</a>
+								<a href="#/" style={{color:'#fff',display:'inline-block',width:'100%'}}>会员列表</a>
 							</span>
 						</Menu.Item>
 						<Menu.Item key="2">
-							<Icon type="video-camera" />
-							<span>nav 2</span>
+							<Icon type="bars" style={{fontSize:18}}/>
+							<span>
+								<a href="#/platform" style={{color:'#fff',display:'inline-block',width:'100%'}}>平台列表</a>
+							</span>
 						</Menu.Item>
 						<Menu.Item key="3">
 							<Icon type="upload" />
@@ -104,7 +106,7 @@ export default class PageLayout extends Component{
 							<Menu.Item key="6">
 								<Icon type="user" style={{fontSize:16}}/>
 								<span>
-									<a href="#/manager" style={{color:'#fff'}}>管理员列表</a>
+									<a href="#/manager" style={{color:'#fff',display:'inline-block',width:'100%'}}>管理员列表</a>
 								</span>
 							</Menu.Item>
 							<Menu.Item key="7">
@@ -124,7 +126,7 @@ export default class PageLayout extends Component{
 							/>
 							<div style={{float:'right',marginRight:'16px',fontSize:'16px'}}>
 								<Dropdown overlay={menu}>
-									<a className="ant-dropdown-link" href="">
+									<a className="ant-dropdown-link">
 										{username} <Icon type="down" />
 									</a>
 								</Dropdown>

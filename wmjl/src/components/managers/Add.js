@@ -98,7 +98,7 @@ class Add extends Component{
                 <FormItem	{...formItemLayout}
                              label={'登录名'}
                              hasFeedback
-                             validateStatus= {exist == 0 ? 'validating':(exist == 1?'success':(exist ==-1?'error':''))}
+                             validateStatus= {exist === 0 ? 'validating':(exist === 1?'success':(exist ===-1?'error':''))}
                 >
                     {getFieldDecorator('loginname',usernameConfig)(
                         <Input placeholder="登录名"
