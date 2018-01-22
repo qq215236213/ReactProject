@@ -6,7 +6,7 @@ import {message} from 'antd';
 import TableCustom from '../common/table/TableCustom';
 import SearchCustom from '../common/searchcondition/SearchCustom';
 
-class MemberInfo extends Component{
+export default class MemberInfo extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
@@ -192,4 +192,4 @@ class MemberInfo extends Component{
 	}
 }
 
-export default MemberInfo;
+
