@@ -60,7 +60,7 @@ export default class PageLayout extends Component{
 				</Menu.Item>
 			</Menu>
 		);
-		const Styles = {color:'#fff',display:'inline-block',width:'100%'};
+		const Styles = {color:'#fff',display:'inline-block',width:'100%',textDecoration:'none'};
 		return (
 			<Layout style={{minHeight:'100%'}}>
 				<Sider
