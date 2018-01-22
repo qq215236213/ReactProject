@@ -27,7 +27,6 @@ export default class PageLayout extends Component{
 
 	onOpenChange(openkeys){
 		const latestOpenKey = openkeys.find(key =>this.state.openkeys.indexOf(key) === -1);
-		console.log(latestOpenKey)
 		if(this.rootSubmenuKeys.indexOf(latestOpenKey) === -1){
 			this.setState({openkeys});
 		}else{

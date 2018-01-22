@@ -67,12 +67,12 @@
       <file leaf-file-name="PageLayout.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/common/layout/PageLayout.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="87" column="20" lean-forward="false" selection-start-line="87" selection-start-column="20" selection-end-line="87" selection-end-column="20" />
+            <state relative-caret-position="190">
+              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding>
                 <element signature="e#0#42#0" expanded="true" />
                 <element signature="e#587#650#0" expanded="false" />
-                <element signature="e#2089#3472#0" expanded="false" />
+                <element signature="e#2060#3443#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -164,7 +164,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="425" />
     <option name="y" value="25" />
     <option name="width" value="1270" />
@@ -273,12 +273,12 @@
       <workItem from="1516582888733" duration="1450000" />
       <workItem from="1516586148236" duration="1979000" />
       <workItem from="1516599676602" duration="13653000" />
-      <workItem from="1516626060561" duration="1204000" />
+      <workItem from="1516626060561" duration="1266000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147706000" />
+    <option name="totallyTimeSpent" value="147768000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -290,7 +290,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="7" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1590621" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -548,12 +548,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/common/layout/PageLayout.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="87" column="20" lean-forward="false" selection-start-line="87" selection-start-column="20" selection-end-line="87" selection-end-column="20" />
+        <state relative-caret-position="190">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
             <element signature="e#587#650#0" expanded="false" />
-            <element signature="e#2089#3472#0" expanded="false" />
+            <element signature="e#2060#3443#0" expanded="false" />
           </folding>
         </state>
       </provider>
