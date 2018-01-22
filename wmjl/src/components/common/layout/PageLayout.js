@@ -60,6 +60,7 @@ export default class PageLayout extends Component{
 				</Menu.Item>
 			</Menu>
 		);
+		const Styles = {color:'#fff',display:'inline-block',width:'100%'};
 		return (
 			<Layout style={{minHeight:'100%'}}>
 				<Sider
@@ -73,13 +74,13 @@ export default class PageLayout extends Component{
 						<Menu.Item key="1">
 							<Icon type="team" style={{fontSize:18}}/>
 							<span>
-								<a href="#/" style={{color:'#fff',display:'inline-block',width:'100%'}}>会员列表</a>
+								<a href="#/" style={Styles}>会员列表</a>
 							</span>
 						</Menu.Item>
 						<Menu.Item key="2">
 							<Icon type="bars" style={{fontSize:18}}/>
 							<span>
-								<a href="#/platform" style={{color:'#fff',display:'inline-block',width:'100%'}}>平台列表</a>
+								<a href="#/platform" style={Styles}>平台列表</a>
 							</span>
 						</Menu.Item>
 						<Menu.Item key="3">
@@ -106,7 +107,7 @@ export default class PageLayout extends Component{
 							<Menu.Item key="6">
 								<Icon type="user" style={{fontSize:16}}/>
 								<span>
-									<a href="#/manager" style={{color:'#fff',display:'inline-block',width:'100%'}}>管理员列表</a>
+									<a href="#/manager" style={Styles}>管理员列表</a>
 								</span>
 							</Menu.Item>
 							<Menu.Item key="7">

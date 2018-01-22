@@ -128,9 +128,9 @@ class PlatForm extends Component{
            if(err){
                return;
            }
-            if(this.state.flag == 0){
+            if(this.state.flag === 0){
                this.createData(values);
-            }else if(this.state.flag == 2){
+            }else if(this.state.flag === 2){
                this.updataData(values);
             }
         });
@@ -151,7 +151,7 @@ class PlatForm extends Component{
     }
     updataData(params){
         const param = Object.assign({},{accesstoken:cookie('token')},params);
-        if(param.isstop == 0)
+        if(param.isstop === 0)
             param.isstop = false;
         else
             param.isstop = true;
@@ -160,7 +160,7 @@ class PlatForm extends Component{
                 message.error(d.Msg);
                 return;
             }
-            message.success('添加成功');
+            message.success('修改成功');
             this.loadData();
             this.setState({
                 dialogisshow:false

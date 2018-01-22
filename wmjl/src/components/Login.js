@@ -27,7 +27,7 @@ class Login extends Component {
                     cookie('memberid',d.Data.User.MemberId,{path:'/'});
                     cookie('membername',d.Data.User.MemberName,{path:'/'});
                     cookie('issystemmanager',d.Data.User.IsSystemManager,{path:'/'});
-                    window.location.href = '/';
+                    window.location.hash = '#/';
 				});
 			}
 		});
