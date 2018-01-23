@@ -10,16 +10,30 @@ export default class PageLayout extends Component{
 		super(props);
 		this.state = {
 			collapsed:false,
-			username:''
+			username:'',
+			openkeys:[]
 		};
+		this.rootSubmenuKeys = ['sub1','sub2'];
 		this.toggle = this.toggle.bind(this);
 		this.logoutEvent = this.logoutEvent.bind(this);
+		this.onOpenChange = this.onOpenChange.bind(this);
 	}
 
 	toggle(){
 		this.setState({
 			collapsed:!this.state.collapsed
 		});
+	}
+
+	onOpenChange(openkeys){
+		const latestOpenKey = openkeys.find(key =>this.state.openkeys.indexOf(key) === -1);
+		if(this.rootSubmenuKeys.indexOf(latestOpenKey) === -1){
+			this.setState({openkeys});
+		}else{
+			this.setState({
+				openkeys:latestOpenKey?[latestOpenKey]:[]
+			});
+		}
 	}
 
 	componentDidMount(){
@@ -70,7 +84,10 @@ export default class PageLayout extends Component{
 					collapsed={this.state.collapsed}
 				>
 					<div className="logo"/>
-					<Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+					<Menu theme="dark" mode="inline"
+						  defaultSelectedKeys={['1']}
+						  openKeys={this.state.openkeys}
+						  onOpenChange={this.onOpenChange}>
 						<Menu.Item key="1">
 							<Icon type="team" style={{fontSize:18}}/>
 							<span>
