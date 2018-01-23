@@ -129,7 +129,7 @@ class Mod extends Component{
                 <FormItem	{...formItemLayout}
                              label={'是否停用'}
                 >
-                    {getFieldDecorator('isstop',{
+                    {getFieldDecorator('isstoped',{
                         initialValue:data.IsStop?'1':'0'
                     })(
                         <Select style={{ width: 275 }}>

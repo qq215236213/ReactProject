@@ -150,11 +150,7 @@ class PlatForm extends Component{
         });
     }
     updataData(params){
-        const param = Object.assign({},{accesstoken:cookie('token')},params);
-        if(param.isstop === 0)
-            param.isstop = false;
-        else
-            param.isstop = true;
+        const param = Object.assign({},{accesstoken:cookie('token'),isstop:params.isstoped === '0'?false:true},params);
         $.post('/platform/'+param.recid,param,(d)=>{
             if(d.IsError){
                 message.error(d.Msg);
