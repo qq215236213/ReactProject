@@ -89,7 +89,7 @@ class Detail extends Component{
                     {getFieldDecorator('isstop',{
                         initialValue:data.IsStop?'1':'0'
                     })(
-                        <Select style={{ width: 275 }}>
+                        <Select style={{ width: 275 }} disabled={true}>
                             <Option value="0">否</Option>
                             <Option value="1">是</Option>
                         </Select>
