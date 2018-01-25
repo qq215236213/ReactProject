@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {Form,Input,message} from 'antd';
 import {cookie} from "../common/cookie";
-import $ from 'jquery';
+import $ from 'jquery/dist/jquery.min';
 const FormItem = Form.Item;
 
 class Add extends Component{

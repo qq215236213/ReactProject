@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import $ from 'jquery';
+import $ from 'jquery/dist/jquery.min';
 import md5 from 'md5';
 import {cookie} from './common/cookie';
 import { Form, Icon, Input, Button, Checkbox,message } from 'antd';

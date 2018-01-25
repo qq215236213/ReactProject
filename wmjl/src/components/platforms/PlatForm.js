@@ -1,7 +1,7 @@
 import React ,{Component} from 'react';
 import TableCustom from '../common/table/TableCustom';
 import {datefmt} from "../common/dateformat";
-import $ from 'jquery';
+import $ from 'jquery/dist/jquery.min';
 import {cookie} from "../common/cookie";
 import {message} from 'antd';
 import SearchCustom from '../common/searchcondition/SearchCustom';

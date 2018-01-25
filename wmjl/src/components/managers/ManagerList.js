@@ -7,7 +7,7 @@ import Mod from './Mod';
 import { datefmt } from "../common/dateformat";
 import { cookie } from "../common/cookie";
 import { tipMsg } from '../common/confirm/confirm';
-import $ from 'jquery';
+import $ from 'jquery/dist/jquery.min';
 import md5 from 'md5';
 import { message } from 'antd';
 

@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {Input,Select,Icon,Form,message} from 'antd';
-import $ from 'jquery';
+import $ from 'jquery/dist/jquery.min';
 import {cookie} from '../common/cookie';
 const Option = Select.Option;
 const FormItem = Form.Item;

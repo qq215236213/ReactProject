@@ -1,5 +1,5 @@
 import React ,{ Component } from 'react';
-import $ from 'jquery';
+import $ from 'jquery/dist/jquery.min';
 import { cookie } from "../common/cookie";
 import {datefmt} from '../common/dateformat';
 import {message} from 'antd';
